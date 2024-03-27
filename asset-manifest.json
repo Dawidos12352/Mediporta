@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Mediporta/static/css/main.7acaea2f.css",
-    "main.js": "/Mediporta/static/js/main.00960116.js",
+    "main.js": "/Mediporta/static/js/main.49db075d.js",
     "index.html": "/Mediporta/index.html",
     "main.7acaea2f.css.map": "/Mediporta/static/css/main.7acaea2f.css.map",
-    "main.00960116.js.map": "/Mediporta/static/js/main.00960116.js.map"
+    "main.49db075d.js.map": "/Mediporta/static/js/main.49db075d.js.map"
   },
   "entrypoints": [
     "static/css/main.7acaea2f.css",
-    "static/js/main.00960116.js"
+    "static/js/main.49db075d.js"
   ]
 }
