@@ -1,33 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export const TagCount = ({ pageSize, setPageSize }) => {
+  
+  const changeHandle = (e) => {
+    setPageSize(parseInt(e.target.value));
+  };
 
-    const [newPageSize, setNewPageSize] = useState(pageSize);
-
-   
-    const changeHandle = (e) => {
-        const {name, value} = e.target
-        setNewPageSize({ 
-          [name] : value
-        })
-      }
-    const handleSubmit = () => {
-        setPageSize(newPageSize);
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setPageSize(parseInt(e.target.value));
+  };
 
   return (
     <form>
-      <label htmlFor="pageSize">Number of elements per page : </label>
+      <label htmlFor="pageSize">Number of elements per page: </label>
       <input
         id="pageSize"
         type="number"
         name="count"
         value={pageSize}
         onChange={changeHandle}
-        min={0} 
-        max={100} 
+        min={0}
+        max={100}
       />
-       <button type="submit" onClick={handleSubmit}>Submit</button>
+      <button type="submit" onClick={handleSubmit}>Submit</button>
     </form>
   );
 };

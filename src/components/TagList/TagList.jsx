@@ -1,23 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { fetchImagesFromAPI } from '../../data/api/api'; 
+import { fetchImagesFromAPI } from '../../data/api/api';
 
-export const TagList = () => {
-  const [tags, setTags] = useState([]); 
+export const TagList = ({ pageSize }) => {
+  const [tags, setTags] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(true); 
 
   useEffect(() => {
-  
     const fetchData = async () => {
       try {
-        const data = await fetchImagesFromAPI(); 
+        const data = await fetchImagesFromAPI(pageSize, currentPage);
         setTags(data); 
+        setHasNextPage(data.length === pageSize); 
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    fetchData(); 
-  }, []); 
+    fetchData();
+  }, [pageSize, currentPage]);
 
+  const handlePreviousPage = () => {
+    setCurrentPage(prevPage => prevPage - 1);
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(prevPage => prevPage + 1);
+  };
 
   return (
     <div>
@@ -29,6 +38,8 @@ export const TagList = () => {
           </li>
         ))}
       </ul>
+      <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous Page</button>
+      {hasNextPage ? <button onClick={handleNextPage}>Next Page</button> : <p>They were all tagged</p>}
     </div>
   );
 };
