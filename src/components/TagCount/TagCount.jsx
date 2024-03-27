@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button, TextField } from '@mui/material';
+import { tagCountStyles } from './TagCountStyles'; 
 
 export const TagCount = ({ pageSize, setPageSize }) => {
   
@@ -12,9 +14,9 @@ export const TagCount = ({ pageSize, setPageSize }) => {
   };
 
   return (
-    <form>
-      <label htmlFor="pageSize">Number of elements per page: </label>
-      <input
+    <form onSubmit={handleSubmit} style={tagCountStyles.form}>
+      <label htmlFor="pageSize" style={tagCountStyles.label}>Number of elements per page:</label>
+      <TextField
         id="pageSize"
         type="number"
         name="count"
@@ -22,8 +24,12 @@ export const TagCount = ({ pageSize, setPageSize }) => {
         onChange={changeHandle}
         min={0}
         max={100}
+        variant="outlined"
+        style={tagCountStyles.textField}
       />
-      <button type="submit" onClick={handleSubmit}>Submit</button>
+      <Button type="submit" variant="contained" style={tagCountStyles.button}>Submit</Button>
     </form>
   );
 };
+
+

@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { fetchImagesFromAPI } from '../../data/api/api';
+import { Container, Typography, List, ListItem, Button } from '@mui/material';
+import { tagListStyles } from './TagListStyles'; 
 
 export const TagList = ({ pageSize }) => {
   const [tags, setTags] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [hasNextPage, setHasNextPage] = useState(true); 
+  const [hasNextPage, setHasNextPage] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await fetchImagesFromAPI(pageSize, currentPage);
         setTags(data); 
-        setHasNextPage(data.length === pageSize); 
+        setHasNextPage(data.length === pageSize);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -29,17 +31,21 @@ export const TagList = ({ pageSize }) => {
   };
 
   return (
-    <div>
-      <h2>Tag List</h2>
-      <ul>
+    <Container maxWidth="md" sx={tagListStyles.container}> 
+      <Typography variant="h4" align="center" sx={tagListStyles.title}>Tag List</Typography>
+      <List>
         {tags.map((tag) => (
-          <li key={tag.name}>
-            {tag.name} - ({tag.count} posts)
-          </li>
+          <ListItem key={tag.name}>
+            <Typography>{tag.name} - ({tag.count} posts)</Typography>
+          </ListItem>
         ))}
-      </ul>
-      <button onClick={handlePreviousPage} disabled={currentPage === 1}>Previous Page</button>
-      {hasNextPage ? <button onClick={handleNextPage}>Next Page</button> : <p>They were all tagged</p>}
-    </div>
+      </List>
+      <div style={tagListStyles.buttonContainer}> 
+        <Button onClick={handlePreviousPage} disabled={currentPage === 1} sx={tagListStyles.button}>Previous Page</Button> 
+        {hasNextPage ? 
+        <Button onClick={handleNextPage}>Next Page</Button> 
+        : <Typography sx={tagListStyles.infoText}>They were all tagged</Typography>} 
+      </div>
+    </Container>
   );
 };

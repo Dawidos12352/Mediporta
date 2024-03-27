@@ -7,7 +7,6 @@ export const App = () => {
 
   return (
     <div>
-      <h1>Example text</h1>
       <TagCount pageSize={pageSize} setPageSize={setPageSize} /> 
       <TagList pageSize={pageSize} /> 
     </div>
